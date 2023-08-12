@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "py-cffi-bridge-npy-and-ocv-demo"
+description = "Demo about how to bridge Numpy and OpenCV"
+authors = [{ name = "Starry-OvO", email = "starry.qvq@gmail.com" }]
+urls = { Repository = "https://github.com/Starry-OvO/py-cffi-bridge-npy-and-ocv-demo/"}
+dynamic = ["version"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.dynamic]
+version = { attr = "libfoo.__version__.__version__" }
+
+[tool.setuptools.package-data]
+"*" = ["*.pyi"]
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+target-version = ["py38"]
+
+[tool.ruff]
+line-length = 120
+select = ["W", "E", "F", "I"]
+ignore = ["E402", "E501"]
+target-version = "py38"
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+"typing.py" = ["F401"]
+"*_pb2.py" = ["F401"]

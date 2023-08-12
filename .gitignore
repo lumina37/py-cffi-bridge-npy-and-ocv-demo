@@ -1,0 +1,16 @@
+*
+
+!.clang-format
+!.gitattributes
+!.gitignore
+!LICENSE
+!mkdocs.yml
+!pyproject.toml
+!README.md
+!setup.py
+
+!libfoo
+!libfoo/**
+
+*.py[cd]
+__pycache__
