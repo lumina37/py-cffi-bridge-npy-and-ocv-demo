@@ -1,4 +1,3 @@
-#define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
 static PyObject* myadd(PyObject* self, PyObject* args)
@@ -10,8 +9,8 @@ static PyObject* myadd(PyObject* self, PyObject* args)
     return PyLong_FromLong(a + b);
 }
 
-static PyMethodDef foo_methods[] = {{"myadd", myadd, METH_VARARGS, NULL}, {NULL, NULL, 0, NULL}};
+static PyMethodDef methods[] = {{"myadd", myadd, METH_VARARGS, NULL}, {NULL, NULL, 0, NULL}};
 
-static struct PyModuleDef foo_module = {PyModuleDef_HEAD_INIT, "libfoo", NULL, -1, foo_methods};
+static struct PyModuleDef module = {PyModuleDef_HEAD_INIT, "_algorithm", NULL, -1, methods};
 
-PyMODINIT_FUNC PyInit_libfoo(void) { return PyModule_Create(&foo_module); }
+PyMODINIT_FUNC PyInit__algorithm(void) { return PyModule_Create(&module); }

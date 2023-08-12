@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.4...3.22)
+cmake_minimum_required(VERSION 3.15...3.26)
 
-project("py-cffi-bridge-npy-and-ocv-demo")
+project(libfoo)
 
 add_subdirectory(libfoo/algorithm)

@@ -3,20 +3,11 @@ requires = ["setuptools", "scikit-build"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "py-cffi-bridge-npy-and-ocv-demo"
+name = "libfoo"
 description = "Demo about how to bridge Numpy and OpenCV"
 authors = [{ name = "Starry-OvO", email = "starry.qvq@gmail.com" }]
 urls = { Repository = "https://github.com/Starry-OvO/py-cffi-bridge-npy-and-ocv-demo/" }
-dynamic = ["version"]
-
-[tool.setuptools.packages.find]
-where = ["."]
-
-[tool.setuptools.dynamic]
-version = { attr = "libfoo.__version__.__version__" }
-
-[tool.setuptools.package-data]
-"*" = ["*.pyi"]
+version = "0.0.0"
 
 [tool.black]
 line-length = 120

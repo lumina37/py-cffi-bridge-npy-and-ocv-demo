@@ -13,5 +13,7 @@
 !libfoo
 !libfoo/**
 
+!main.py
+
 *.py[cd]
 __pycache__
