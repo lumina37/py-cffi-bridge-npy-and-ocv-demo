@@ -1,12 +1,13 @@
 *
 
+!LICENSE
+!README.md
+
 !.clang-format
 !.gitattributes
 !.gitignore
-!LICENSE
-!mkdocs.yml
 !pyproject.toml
-!README.md
+!CMakeLists.txt
 !setup.py
 
 !libfoo

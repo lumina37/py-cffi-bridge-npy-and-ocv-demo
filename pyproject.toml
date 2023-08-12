@@ -1,12 +1,12 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools", "scikit-build"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "py-cffi-bridge-npy-and-ocv-demo"
 description = "Demo about how to bridge Numpy and OpenCV"
 authors = [{ name = "Starry-OvO", email = "starry.qvq@gmail.com" }]
-urls = { Repository = "https://github.com/Starry-OvO/py-cffi-bridge-npy-and-ocv-demo/"}
+urls = { Repository = "https://github.com/Starry-OvO/py-cffi-bridge-npy-and-ocv-demo/" }
 dynamic = ["version"]
 
 [tool.setuptools.packages.find]
