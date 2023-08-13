@@ -1,5 +1,4 @@
-find_package(PythonExtensions REQUIRED)
+find_package(Python COMPONENTS Interpreter Development.Module REQUIRED)
 
-add_library(_algorithm MODULE "./src/lib.c")
-python_extension_module(_algorithm)
-install(TARGETS _algorithm LIBRARY DESTINATION "libfoo/algorithm")
+Python_add_library(_algorithm MODULE "./src/lib.c" WITH_SOABI)
+install(TARGETS _algorithm DESTINATION ${SKBUILD_PROJECT_NAME}/algorithm)
