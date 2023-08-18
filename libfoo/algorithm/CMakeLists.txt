@@ -1,4 +1,12 @@
-find_package(Python COMPONENTS Interpreter Development.Module NumPy REQUIRED)
+find_package(Python3 COMPONENTS Interpreter Development.Module NumPy REQUIRED)
+find_package(OpenCV COMPONENTS core imgproc REQUIRED)
 
-Python_add_library(_algorithm MODULE "./src/lib.c" WITH_SOABI)
+set(_algorithm_INCLUDE_DIRS "include" ${OpenCV_INCLUDE_DIRS} ${Python3_NumPy_INCLUDE_DIRS})
+set(_algorithm_SRCS "src/lib.cpp" "src/convert.cpp")
+
+Python3_add_library(_algorithm MODULE ${_algorithm_SRCS} WITH_SOABI)
+target_include_directories(_algorithm PUBLIC ${_algorithm_INCLUDE_DIRS})
+target_link_libraries(_algorithm PUBLIC ${OpenCV_LIBS})
+target_compile_features(_algorithm PUBLIC cxx_std_11)
+
 install(TARGETS _algorithm DESTINATION ${SKBUILD_PROJECT_NAME}/algorithm)
