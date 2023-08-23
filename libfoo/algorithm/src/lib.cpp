@@ -3,11 +3,10 @@
 
 #include <opencv2/imgproc.hpp>
 
-#include "libfoo/convert.hpp"
+#define PY_ARRAY_UNIQUE_SYMBOL opencv_ARRAY_API
+#include <numpy/ndarrayobject.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "libfoo/convert.hpp"
 
 static PyObject* mybgr2gray(PyObject* self, PyObject* args)
 {
@@ -26,8 +25,8 @@ static PyMethodDef methods[] = {{"mybgr2gray", mybgr2gray, METH_VARARGS, NULL}, 
 
 static struct PyModuleDef module = {PyModuleDef_HEAD_INIT, "_algorithm", NULL, -1, methods};
 
-PyMODINIT_FUNC PyInit__algorithm(void) { return PyModule_Create(&module); }
-
-#ifdef __cplusplus
+PyMODINIT_FUNC PyInit__algorithm()
+{
+    import_array();
+    return PyModule_Create(&module);
 }
-#endif

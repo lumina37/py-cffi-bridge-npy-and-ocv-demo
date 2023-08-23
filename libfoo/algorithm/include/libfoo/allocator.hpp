@@ -3,7 +3,6 @@
 #define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
-#include <numpy/ndarrayobject.h>
 #include <opencv2/core.hpp>
 
 class PyEnsureGIL

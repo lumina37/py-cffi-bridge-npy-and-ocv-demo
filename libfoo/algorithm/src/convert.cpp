@@ -1,7 +1,9 @@
-#include "libfoo/convert.hpp"
-#include "libfoo/allocator.hpp"
-
+#define NO_IMPORT_ARRAY
+#define PY_ARRAY_UNIQUE_SYMBOL opencv_ARRAY_API
 #include <numpy/ndarrayobject.h>
+
+#include "libfoo/allocator.hpp"
+#include "libfoo/convert.hpp"
 
 #define CV_MAX_DIM 32
 
@@ -24,6 +26,7 @@ bool from_npy(PyObject* o, cv::Mat& m)
     bool needcopy = false;
 
     int typenum = PyArray_TYPE(oarr);
+    int type = CV_8U;
     int new_typenum = typenum;
     if (typenum != NPY_UBYTE) {
         PyErr_Format(PyExc_ValueError, "Expect NPY_UBYTE, got %i", typenum);
@@ -31,9 +34,11 @@ bool from_npy(PyObject* o, cv::Mat& m)
     }
 
     int ndims = PyArray_NDIM(oarr);
-    size_t elemsize = 1;
+    size_t elemsize = CV_ELEM_SIZE1(CV_8U);
     const npy_intp* _sizes = PyArray_DIMS(oarr);
     const npy_intp* _strides = PyArray_STRIDES(oarr);
+
+    bool ismultichannel = ndims == 3 && _sizes[2] <= CV_CN_MAX;
 
     for (int i = ndims - 1; i >= 0 && !needcopy; i--) {
         // these checks handle cases of
@@ -46,11 +51,18 @@ bool from_npy(PyObject* o, cv::Mat& m)
             needcopy = true;
     }
 
-    if (needcopy) {
+    if (ismultichannel) {
+        int channels = ndims >= 1 ? (int)_sizes[ndims - 1] : 1;
+        ndims--;
+        type |= CV_MAKETYPE(0, channels);
+        if (ndims >= 1 && _strides[ndims - 1] != (npy_intp)elemsize * _sizes[ndims])
+            needcopy = true;
+        elemsize = CV_ELEM_SIZE(type);
+    }
 
+    if (needcopy) {
         oarr = PyArray_GETCONTIGUOUS(oarr);
         o = (PyObject*)oarr;
-
         _strides = PyArray_STRIDES(oarr);
     }
 
@@ -70,8 +82,8 @@ bool from_npy(PyObject* o, cv::Mat& m)
         }
     }
 
-    m = cv::Mat(ndims, size, CV_8U, PyArray_DATA(oarr), step);
-    m.u = g_numpyAllocator.allocate(o, ndims, size, CV_8U, step);
+    m = cv::Mat(ndims, size, CV_8UC3, PyArray_DATA(oarr), step);
+    m.u = g_numpyAllocator.allocate(o, ndims, size, CV_8UC3, step);
     m.addref();
 
     if (!needcopy) {
@@ -84,11 +96,10 @@ bool from_npy(PyObject* o, cv::Mat& m)
 
 PyObject* to_npy(const cv::Mat& m)
 {
-    if( !m.data )
+    if (!m.data)
         Py_RETURN_NONE;
     cv::Mat temp, *p = (cv::Mat*)&m;
-    if(!p->u || p->allocator != &g_numpyAllocator)
-    {
+    if (!p->u || p->allocator != &g_numpyAllocator) {
         temp.allocator = &g_numpyAllocator;
         m.copyTo(temp);
         p = &temp;
