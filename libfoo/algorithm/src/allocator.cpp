@@ -1,5 +1,7 @@
 #include "libfoo/allocator.hpp"
 
+NumpyAllocator g_numpyAllocator;
+
 cv::UMatData* NumpyAllocator::allocate(PyObject* o, int dims, const int* sizes, int type, size_t* step) const
 {
     cv::UMatData* u = new cv::UMatData(this);

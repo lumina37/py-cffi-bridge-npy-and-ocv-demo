@@ -1,1 +1,1 @@
-from ._algorithm import myadd
+from ._algorithm import mybgr2gray
