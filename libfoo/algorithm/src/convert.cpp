@@ -1,4 +1,5 @@
 #include "libfoo/convert.hpp"
+#include "libfoo/allocator.hpp"
 
 #include <numpy/ndarrayobject.h>
 
@@ -79,4 +80,20 @@ bool from_npy(PyObject* o, cv::Mat& m)
     m.allocator = &g_numpyAllocator;
 
     return true;
+}
+
+PyObject* to_npy(const cv::Mat& m)
+{
+    if( !m.data )
+        Py_RETURN_NONE;
+    cv::Mat temp, *p = (cv::Mat*)&m;
+    if(!p->u || p->allocator != &g_numpyAllocator)
+    {
+        temp.allocator = &g_numpyAllocator;
+        m.copyTo(temp);
+        p = &temp;
+    }
+    auto* o = (PyObject*)p->u->userdata;
+    Py_INCREF(o);
+    return o;
 }

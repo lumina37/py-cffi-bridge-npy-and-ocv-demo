@@ -5,21 +5,6 @@
 
 #include <opencv2/core.hpp>
 
-class NumpyAllocator : public cv::MatAllocator
-{
-public:
-    NumpyAllocator() { stdAllocator = cv::Mat::getStdAllocator(); }
-    ~NumpyAllocator() {}
+bool from_npy(PyObject* o, cv::Mat& m);
 
-    cv::UMatData* allocate(PyObject* o, int dims, const int* sizes, int type, size_t* step) const;
-    cv::UMatData* allocate(int dims0, const int* sizes, int type, void* data, size_t* step, cv::AccessFlag flags,
-                           cv::UMatUsageFlags usageFlags) const CV_OVERRIDE;
-    bool allocate(cv::UMatData* u, cv::AccessFlag accessFlags, cv::UMatUsageFlags usageFlags) const CV_OVERRIDE;
-    void deallocate(cv::UMatData* u) const CV_OVERRIDE;
-
-    const cv::MatAllocator* stdAllocator;
-};
-
-extern NumpyAllocator g_numpyAllocator;
-
-bool from_npy(PyObject* o, cv::Mat& m)
+PyObject* to_npy(const cv::Mat& m);
