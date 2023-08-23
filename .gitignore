@@ -1,4 +1,7 @@
 /.*
 build
 *.py[cd]
+*.png
+*.jpg
 __pycache__
+cmake-build*
