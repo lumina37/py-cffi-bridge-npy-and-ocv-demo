@@ -6,7 +6,7 @@
 #define PY_ARRAY_UNIQUE_SYMBOL opencv_ARRAY_API
 #include <numpy/ndarrayobject.h>
 
-#include "libfoo/convert.hpp"
+#include "libfoo/convert.h"
 
 static PyObject* mybgr2gray(PyObject* self, PyObject* args)
 {

@@ -3,5 +3,6 @@ build
 *.py[cd]
 *.png
 *.jpg
+.pdm-python
 __pycache__
 cmake-build*

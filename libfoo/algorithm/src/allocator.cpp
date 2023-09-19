@@ -2,7 +2,7 @@
 #define PY_ARRAY_UNIQUE_SYMBOL opencv_ARRAY_API
 #include <numpy/ndarrayobject.h>
 
-#include "libfoo/allocator.hpp"
+#include "libfoo/allocator.h"
 
 NumpyAllocator g_numpyAllocator;
 

@@ -2,8 +2,8 @@
 #define PY_ARRAY_UNIQUE_SYMBOL opencv_ARRAY_API
 #include <numpy/ndarrayobject.h>
 
-#include "libfoo/allocator.hpp"
-#include "libfoo/convert.hpp"
+#include "libfoo/allocator.h"
+#include "libfoo/convert.h"
 
 #define CV_MAX_DIM 32
 

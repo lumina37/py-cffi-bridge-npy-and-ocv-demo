@@ -8,6 +8,11 @@ description = "Demo about how to bridge Numpy and OpenCV"
 authors = [{ name = "Starry-OvO", email = "starry.qvq@gmail.com" }]
 urls = { Repository = "https://github.com/Starry-OvO/py-cffi-bridge-npy-and-ocv-demo/" }
 version = "0.0.0"
+dependencies = ["opencv-python>=4.7"]
+requires-python = ">=3.8"
+
+[tool.pdm.dev-dependencies]
+lint = ["ruff", "black"]
 
 [tool.black]
 line-length = 120
