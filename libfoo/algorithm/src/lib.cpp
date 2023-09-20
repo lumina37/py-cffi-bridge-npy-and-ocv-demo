@@ -1,18 +1,12 @@
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-
 #include <opencv2/imgproc.hpp>
-
-#define PY_ARRAY_UNIQUE_SYMBOL opencv_ARRAY_API
-#include <numpy/ndarrayobject.h>
 
 #include "libfoo/convert.h"
 
-static PyObject* mybgr2gray(PyObject* self, PyObject* args)
+static PyObject* mybgr2gray(PyObject* Py_UNUSED(self), PyObject* args)
 {
     PyObject* npy_array;
     if (!PyArg_ParseTuple(args, "O", &npy_array))
-        return NULL;
+        return nullptr;
 
     cv::Mat img, img_gray;
     from_npy(npy_array, img);

@@ -1,7 +1,4 @@
 #define NO_IMPORT_ARRAY
-#define PY_ARRAY_UNIQUE_SYMBOL opencv_ARRAY_API
-#include <numpy/ndarrayobject.h>
-
 #include "libfoo/allocator.h"
 #include "libfoo/convert.h"
 

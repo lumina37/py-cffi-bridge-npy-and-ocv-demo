@@ -15,3 +15,6 @@
 #undef __FOO_RESTORE_DEBUG
 #endif
 #endif
+
+#define PY_ARRAY_UNIQUE_SYMBOL opencv_ARRAY_API
+#include <numpy/ndarrayobject.h>
