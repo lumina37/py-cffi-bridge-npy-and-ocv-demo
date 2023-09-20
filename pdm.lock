@@ -6,7 +6,7 @@ groups = ["default", "lint"]
 cross_platform = true
 static_urls = false
 lock_version = "4.3"
-content_hash = "sha256:8ca11de371c2e2843a17a25d28a676876a1afeabee9f04a6c065061cdb619b93"
+content_hash = "sha256:4e5a21b557dc7345a622a0739d9f967ada130b8a4a95f71bb1c5d3d06343d6fe"
 
 [[package]]
 name = "black"
