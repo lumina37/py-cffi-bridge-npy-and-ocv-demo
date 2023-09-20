@@ -8,7 +8,7 @@ You must install OpenCV first. Only tested over shared-lib mode.
 
 ### Windows
 
-If you are using Windows platform, please make sure the opencv dlls can be finded through enviornment varible `PATH`.
+If you are using Windows platform, please make sure the opencv dlls can be found through the enviornment varible `PATH`.
 
 ### Choose a picture
 
