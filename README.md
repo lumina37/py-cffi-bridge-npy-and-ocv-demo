@@ -29,9 +29,11 @@ Choose a picture, copy and paste it to the working directory, then rename it to 
 ### Using pip
 
 ```shell
-pip install -e .
+pip install .
 python main.py
 ```
+
+DO NOT miss the dot after `install`
 
 ### Using pdm
 
