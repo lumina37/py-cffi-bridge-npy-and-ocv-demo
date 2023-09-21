@@ -5,7 +5,7 @@ NumpyAllocator g_numpyAllocator;
 
 cv::UMatData* NumpyAllocator::allocate(PyObject* o, int dims, const int* sizes, int type, size_t* step) const
 {
-    cv::UMatData* u = new cv::UMatData(this);
+    auto* u = new cv::UMatData(this);
     u->data = u->origdata = (uchar*)PyArray_DATA((PyArrayObject*)o);
     npy_intp* _strides = PyArray_STRIDES((PyArrayObject*)o);
     for (int i = 0; i < dims - 1; i++)
@@ -19,7 +19,7 @@ cv::UMatData* NumpyAllocator::allocate(PyObject* o, int dims, const int* sizes, 
 cv::UMatData* NumpyAllocator::allocate(int dims0, const int* sizes, int type, void* data, size_t* step,
                                        cv::AccessFlag flags, cv::UMatUsageFlags usageFlags) const
 {
-    if (data != 0) {
+    if (data != nullptr) {
         // issue #6969: CV_Error(Error::StsAssert, "The data should normally be NULL!");
         // probably this is safe to do in such extreme case
         return stdAllocator->allocate(dims0, sizes, type, data, step, flags, usageFlags);
@@ -49,7 +49,7 @@ void NumpyAllocator::deallocate(cv::UMatData* u) const
         return;
     PyEnsureGIL gil;
     if (u->refcount == 0) {
-        PyObject* o = (PyObject*)u->userdata;
+        auto* o = (PyObject*)u->userdata;
         Py_XDECREF(o);
         delete u;
     }

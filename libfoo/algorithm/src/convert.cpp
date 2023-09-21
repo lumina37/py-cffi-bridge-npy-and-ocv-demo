@@ -1,6 +1,6 @@
 #define NO_IMPORT_ARRAY
-#include "libfoo/allocator.h"
 #include "libfoo/convert.h"
+#include "libfoo/allocator.h"
 
 #define CV_MAX_DIM 32
 
@@ -24,13 +24,17 @@ bool from_npy(PyObject* o, cv::Mat& m)
 
     int typenum = PyArray_TYPE(oarr);
     int type = CV_8U;
-    int new_typenum = typenum;
     if (typenum != NPY_UBYTE) {
         PyErr_Format(PyExc_ValueError, "Expect NPY_UBYTE, got %i", typenum);
         return false;
     }
 
     int ndims = PyArray_NDIM(oarr);
+    if (ndims > 3) {
+        PyErr_Format(PyExc_ValueError, "Expect ndims<=3, got %i", ndims);
+        return false;
+    }
+
     size_t elemsize = CV_ELEM_SIZE1(CV_8U);
     const npy_intp* _sizes = PyArray_DIMS(oarr);
     const npy_intp* _strides = PyArray_STRIDES(oarr);
@@ -79,8 +83,8 @@ bool from_npy(PyObject* o, cv::Mat& m)
         }
     }
 
-    m = cv::Mat(ndims, size, CV_8UC3, PyArray_DATA(oarr), step);
-    m.u = g_numpyAllocator.allocate(o, ndims, size, CV_8UC3, step);
+    m = cv::Mat(ndims, size, type, PyArray_DATA(oarr), step);
+    m.u = g_numpyAllocator.allocate(o, ndims, size, type, step);
     m.addref();
 
     if (!needcopy) {
@@ -95,13 +99,16 @@ PyObject* to_npy(const cv::Mat& m)
 {
     if (!m.data)
         Py_RETURN_NONE;
+
     cv::Mat temp, *p = (cv::Mat*)&m;
     if (!p->u || p->allocator != &g_numpyAllocator) {
         temp.allocator = &g_numpyAllocator;
         m.copyTo(temp);
         p = &temp;
     }
+
     auto* o = (PyObject*)p->u->userdata;
     Py_INCREF(o);
+
     return o;
 }
