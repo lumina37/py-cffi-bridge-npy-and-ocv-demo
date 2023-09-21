@@ -1,8 +1,6 @@
 # Python-cffi: Bridge NumPy and OpenCV Demo
 
-This demo shows the bidirectional conversion method between NumPy ndarray (uint8, not more than 3 channels) and cv::Mat (CV_8U).
-
-Aiming to implement high-performance algorithm for NumPy with the assistance of OpenCV.
+This demo shows the bidirectional conversion method between NumPy ndarray (uint8, not more than 3 channels) and cv::Mat (CV_8U). I hope it could be a guideline about how to implement high-performance algorithms using OpenCV as extension for NumPy.
 
 And the demo additionally applies lots of next-generation Python-Cpp hybrid project organizing methods.
 
@@ -14,17 +12,19 @@ Then the Python package managing tool [pdm](https://pdm.fming.dev/) and the exte
 
 But, I must admit that, it is extremely hard to debug the C-Extension for Python, especially when building with [scikit-build-core](https://github.com/scikit-build/scikit-build-core).
 
-## Before build
+## Before Build
 
-You must install OpenCV first. This demo is only tested over shared-lib mode on Windows-x64 platform.
+You must install OpenCV first. This demo is only tested against shared-lib mode on Windows-x64 platform.
 
-### Windows
+### Note for Windows
 
-If you are using Windows platform, please make sure the opencv dlls can be found through the enviornment varible `PATH`.
+If you are using Windows platform, please make sure the opencv DLLs can be found through the enviornment varible `PATH`.
 
-### Choose a picture
+### Choose a Picture
 
 Choose a picture, copy and paste it to the working directory, then rename it to `test.jpg`.
+
+## Build and Run
 
 ### Using pip
 
@@ -39,3 +39,7 @@ python main.py
 pdm sync
 pdm run python main.py
 ```
+
+### Expect Behaviour
+
+GUI window showing grayscaled picture.
