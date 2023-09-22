@@ -41,16 +41,20 @@ bool from_npy(PyObject* o, cv::Mat& m)
 
     bool ismultichannel = ndims == 3 && _sizes[2] <= CV_CN_MAX;
 
-    for (int i = ndims - 1; i >= 0 && !needcopy; i--) {
+    for (int i = ndims - 1; i >= 0; i--) {
         // these checks handle cases of
         //  a) multi-dimensional (ndims > 2) arrays, as well as simpler 1- and 2-dimensional cases
         //  b) transposed arrays, where _strides[] elements go in non-descending order
         //  c) flipped arrays, where some of _strides[] elements are negative
         // the _sizes[i] > 1 is needed to avoid spurious copies when NPY_RELAXED_STRIDES is set
         if ((i == ndims - 1 && _sizes[i] > 1 && (size_t)_strides[i] != elemsize) ||
-            (i < ndims - 1 && _sizes[i] > 1 && _strides[i] < _strides[i + 1]))
+            (i < ndims - 1 && _sizes[i] > 1 && _strides[i] < _strides[i + 1])) {
             needcopy = true;
+            goto break_loop;
+        }
     }
+
+break_loop:
 
     if (ismultichannel) {
         int channels = ndims >= 1 ? (int)_sizes[ndims - 1] : 1;
