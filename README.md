@@ -1,6 +1,6 @@
 # Python-cffi: Bridge NumPy and OpenCV Demo
 
-This demo shows the bidirectional conversion method between NumPy ndarray (uint8, not more than 3 channels) and cv::Mat (CV_8U). I hope it could be a draft guideline about how to implement high-performance algorithms using OpenCV as extension for NumPy.
+This demo shows the bidirectional conversion between NumPy ndarray (uint8, not more than 3 channels) and cv::Mat (CV_8U). I hope it could be a draft guideline about how to implement high-performance algorithm based OpenCV as extension for NumPy.
 
 The demo also applies lots of next-generation Python-Cpp hybrid project organizing methods.
 
