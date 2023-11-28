@@ -40,7 +40,7 @@ DO NOT miss the dot after `-e`
 ```shell
 pdm sync
 pdm install
-pdm run python main.py
+pdm run main.py
 ```
 
 ### Expect Behaviour
