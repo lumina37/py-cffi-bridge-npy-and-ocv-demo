@@ -1,8 +1,11 @@
-/.*
-build
+.*/
+build/
 *.py[cd]
+__pycache__
+*build*
+
+.python-version
+
+*.lock
 *.png
 *.jpg
-.pdm-python
-__pycache__
-cmake-build*
