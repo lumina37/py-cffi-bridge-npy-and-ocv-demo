@@ -11,6 +11,10 @@ requires-python = ">=3.8,<3.13"
 requires = ["scikit-build-core", "numpy"]
 build-backend = "scikit_build_core.build"
 
+[tool.scikit-build]
+sdist.exclude = ["*.md", ".*"]
+wheel.exclude = ["*.cpp", "*.h", "*.txt"]
+
 [tool.rye]
 managed = true
 

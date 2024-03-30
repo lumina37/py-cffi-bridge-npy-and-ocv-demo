@@ -1,5 +1,5 @@
 .*/
-build/
+dist/
 *.py[cd]
 __pycache__
 *build*
